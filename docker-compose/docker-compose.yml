@@ -4,12 +4,12 @@ networks:
   joinc-nw:
 
 services:
-  hello-app:
-    image: joinc/hello:latest
+  counter-app:
+    image: joinc/counter:latest
     ports:
       - "8000:8000"
     depends_on:
-      - hello-mysql
+      - counter-db 
     networks:
       - joinc-nw
     environment:
@@ -17,9 +17,9 @@ services:
       MYSQL_PASSWORD: "1234"
       MYSQL_DATABASE: "counter"
       MYSQL_PORT: "3306"
-      MYSQL_HOST: "hello-mysql"
+      MYSQL_HOST: "counter-db"
 
-  hello-mysql:
+  counter-db:
     image: mysql:latest
     ports:
       - "3306"
@@ -27,12 +27,3 @@ services:
       MYSQL_ROOT_PASSWORD: 1234
     networks:
       - joinc-nw
-
-  hello-ubuntu:
-    image: ubuntu:latest
-    depends_on:
-      - hello-mysql
-    networks:
-      - joinc-nw
-    stdin_open: true
-    tty: true

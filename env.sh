@@ -1,0 +1,5 @@
+export MYSQL_USER=root
+export MYSQL_PASSWORD=1234
+export MYSQL_DATABASE=counter
+export MYSQL_HOST=172.17.0.2
+export MYSQL_PORT=3306

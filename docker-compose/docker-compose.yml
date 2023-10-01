@@ -1,0 +1,38 @@
+version: "3.0"
+
+networks:
+  joinc-nw:
+
+services:
+  hello-app:
+    image: joinc/hello:latest
+    ports:
+      - "8000:8000"
+    depends_on:
+      - hello-mysql
+    networks:
+      - joinc-nw
+    environment:
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "1234"
+      MYSQL_DATABASE: "counter"
+      MYSQL_PORT: "3306"
+      MYSQL_HOST: "hello-mysql"
+
+  hello-mysql:
+    image: mysql:latest
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      - joinc-nw
+
+  hello-ubuntu:
+    image: ubuntu:latest
+    depends_on:
+      - hello-mysql
+    networks:
+      - joinc-nw
+    stdin_open: true
+    tty: true
